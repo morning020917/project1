@@ -304,7 +304,6 @@ int testHit(int x1,int y1,int w1,int h1,int x2,int y2,int w2,int h2 )
 // 主函数，开启游戏
 int main  ()
 {
-	printf("sss");
 	initgraph(screenWidth, screenHeight,SHOWCONSOLE);		
 	initgame();					// 初始化游戏
 	paint();// 刷新显示游戏界面
@@ -339,16 +338,17 @@ void gamePaint()
 {
 	TCHAR path[100];//路径模块
 	IMAGE img;//申请一个存放图片的内存空间
-	IMAGE imgs[7][15];
-	
+	IMAGE imgs[8][15];
+
+
 	setfillcolor(0xFF55FF);//0x
 	loadimage(NULL, _T(".\\images\\back.png"));
 	for (int l = 0; l < 8; l++) {
 		for (int r = 0; r < 8; r++) {
 			//type = rand() % 7;
 			_stprintf(path, L".\\images\\%d\\%d.png", types[l][r], t);//产生路径
-			loadimage(&img, path);//加载图片到内存空间
-			putimage(200 + 52 * r, 10 + 52 * l, &img);//把内存空间里的照片放到xy的位置上
+			loadimage(&imgs[l][r], path);//加载图片到内存空间
+			putimage(200 + 52 * r, 10 + 52 * l, &imgs[l][r]);//把内存空间里的照片放到xy的位置上
 		}
 	}
 	fillrectangle(243, 449, 243 + w, 449 + 15);
@@ -410,11 +410,11 @@ void gameKeypress(int key)
 //TODO: 7 处理鼠标控制位置
 void gameMouseDown(int mouseX,int mouseY)
 {
-	 
+	printf("鼠标按下了左键\n");
 }
 void gameMouseUp(int mouseX,int mouseY)
 {
-	 
+	printf("鼠标松开了左键\n");
 }
 void gameMousemove (int mouseX,int mouseY)
 {
