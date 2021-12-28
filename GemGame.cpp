@@ -321,7 +321,9 @@ int main  ()
 int t = 0, type;
 int types[8][8];
 int w = 0;
-
+TCHAR path[100];//路径模块
+IMAGE img;//申请一个存放图片的内存空间
+IMAGE imgs[7][15];
 //TODO: 3 游戏初始化位置  
  void gameInit()
 {
@@ -332,23 +334,26 @@ int w = 0;
 			 types[h][l] = rand() % 7;
 		 }
 	 }
+	 loadimage(&img, _T(".\\images\\back.png"));
+	 for (int l = 0; l < 7; l++) {
+		 for (int r = 0; r < 15; r++) {
+			 //type = rand() % 7;
+			 _stprintf(path, L".\\images\\%d\\%d.png", l,r);//产生路径
+			 loadimage(&imgs[l][r], path);//加载图片到内存空间
+		 }
+	 }
 }
  //TODO: 4 绘图处理位置  
 void gamePaint()
 {
-	TCHAR path[100];//路径模块
-	IMAGE img;//申请一个存放图片的内存空间
-	IMAGE imgs[8][15];
-
-
 	setfillcolor(0xFF55FF);//0x
-	loadimage(NULL, _T(".\\images\\back.png"));
+	putimage(0, 0, &img);
 	for (int l = 0; l < 8; l++) {
 		for (int r = 0; r < 8; r++) {
 			//type = rand() % 7;
-			_stprintf(path, L".\\images\\%d\\%d.png", types[l][r], t);//产生路径
-			loadimage(&imgs[l][r], path);//加载图片到内存空间
-			putimage(200 + 52 * r, 10 + 52 * l, &imgs[l][r]);//把内存空间里的照片放到xy的位置上
+			//_stprintf(path, L".\\images\\%d\\%d.png", types[l][r], t);//产生路径
+			//loadimage(&imgs[l][r], path);//加载图片到内存空间
+			putimage(200 + 52 * r, 10 + 52 * l, &imgs[types[l][r]][t]);//把内存空间里的照片放到xy的位置上
 		}
 	}
 	fillrectangle(243, 449, 243 + w, 449 + 15);
