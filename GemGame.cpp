@@ -481,7 +481,22 @@ void gameMouseUp(int mouseX,int mouseY)
 		{
 			gems[line1][column1].State = GEM_STATE::SELECTED_FIRST;
 		}
+		else 
+		{
+			gameState = GAME_NORMAL;
+			if (line1 != -1) 
+			{
+				gems[line1][column1].State = GEM_NORMAL;
+				line1 = column1 = -1;
+			}
+			if (line2 != -1) 
+			{
+				gems[line2][column2].State = GEM_NORMAL;
+				line2 = column2 = -1;
+			}
+		}
 	}
+	
 	else
 	{
 		//»Ö¸´ ½ûÖ¹×´Ì¬
