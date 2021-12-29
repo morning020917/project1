@@ -345,7 +345,7 @@ typedef enum {
 	int Type;//宝石的类型号：1~7
 	GEM_STATE State;//宝石的状态
 } GEM;
- //函数的前置声明
+ //TODO: 2 函数的前置声明
  void resetGameNormalState();
 
 
