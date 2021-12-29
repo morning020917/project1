@@ -483,7 +483,7 @@ void gameMouseUp(int mouseX,int mouseY)
 			) 
 		{
 			gems[line1][column1].State = GEM_STATE::SELECTED_FIRST;
-
+			gameState = GAME_STATE::SELECT_ONE;
 		}
 		else 
 		{
