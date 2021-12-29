@@ -345,6 +345,9 @@ typedef enum {
 	int Type;//宝石的类型号：1~7
 	GEM_STATE State;//宝石的状态
 } GEM;
+ //函数的前置声明
+ void resetGameNormalState()；
+
 
 //TODO: 2 全局变量声明位置 
 int level = 3;//难度等级 宝石种类越少越简单
@@ -480,25 +483,17 @@ void gameMouseUp(int mouseX,int mouseY)
 			) 
 		{
 			gems[line1][column1].State = GEM_STATE::SELECTED_FIRST;
+
 		}
 		else 
 		{
-			gameState = GAME_NORMAL;
-			if (line1 != -1) 
-			{
-				gems[line1][column1].State = GEM_NORMAL;
-				line1 = column1 = -1;
-			}
-			if (line2 != -1) 
-			{
-				gems[line2][column2].State = GEM_NORMAL;
-				line2 = column2 = -1;
-			}
+			resetGameNormalState();
 		}
 	}
 	
 	else
 	{
+		resetGameNormalState();
 		//恢复 禁止状态
 	}
 }
@@ -510,4 +505,19 @@ void gameMousemove (int mouseX,int mouseY)
 void gameMouseRightDown(int mouseX,int mouseY)
 {
 	 
+}
+//--------------重构-------------------------------------------------
+void resetGameNormalState() 
+{
+	gameState = GAME_NORMAL;
+	if (line1 != -1)
+	{
+		gems[line1][column1].State = GEM_NORMAL;
+		line1 = column1 = -1;
+	}
+	if (line2 != -1)
+	{
+		gems[line2][column2].State = GEM_NORMAL;
+		line2 = column2 = -1;
+	}
 }
