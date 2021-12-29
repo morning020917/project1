@@ -317,6 +317,36 @@ int main  ()
  
 
 //--------------优雅的警戒线 以上为雷区 非专业 勿进------------------// 
+
+//定义数据类型
+//1 游戏状态标识（枚举）
+
+typedef enum 
+{
+	GAME_NORMAL,//正常状态
+	SELECT_ONE,//选了第一个宝石
+	SELECT_TWO,//选了第二个宝石
+	CLER, //清楚状态
+	APPEND //追加补齐
+} GAME_STATE;
+
+//2 宝石状态枚举
+typedef enum {
+	GEM_NORMAL,//静态宝石
+	SELECTED_FIRST,//被选为第一个宝石
+	SELECTED_SECOND,//被选为第二个宝石
+	TO_CLEAR,//要被清除的宝石
+	CLEARING//清除进行中的宝石
+} GEM_STATE;
+
+//宝石结构体
+ typedef struct {
+	int ImageNum;//图片动画编号
+	int Type;//宝石的类型号：1~7
+	GEM_STATE State;//宝石的状态
+} GEM;
+
+
 //TODO: 2 全局变量声明位置 
 int t = 0, type;
 int types[8][8];
@@ -327,6 +357,8 @@ IMAGE imgs[7][15];
 //TODO: 3 游戏初始化位置  
  void gameInit()
 {
+	 int a = 10;
+
 	 for (int h = 0; h < 8; h++)
 	 {
 		 for (int l = 0; l < 8; l++)
