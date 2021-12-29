@@ -439,10 +439,10 @@ void gameKeypress(int key)
 		break;	
 
 	case 72: //上
-		printf("按上键了\n");
+		
 		break;
 	case 80://下
-		printf("按下键了\n");		  
+				  
 		break;
 	case 75://左
 		 	 
