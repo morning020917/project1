@@ -357,6 +357,7 @@ int imageCount = 14 + 1;//动画图片帧的总数量
 int gemsTempTop = 10 - 50 * 2;//宝石下落的距离
 int score = 0;//成绩得分
 int timeLong = 0;//时间进度条的长度
+
 int t = 0, type;
 int types[8][8];
 int w = 0;
@@ -367,15 +368,26 @@ IMAGE imgs[7][15];
  void gameInit()
 {
 	 int a = 10;
-
+	 //宝石的初始化
 	 for (int h = 0; h < 8; h++)
 	 {
 		 for (int l = 0; l < 8; l++)
 		 {
-			 types[h][l] = rand() % 7;
+			// types[h][l] = rand() % 7;
+			 gems[h][l].Type = rand() % level;
+			 gemsTemp[h][l].Type = -1;//没有宝石
 		 }
 	 }
+	 //游戏状态初始值
+	 gameState = GAME_STATE::GAME_NORMAL;
+	 line1 = line2 = column1 = column2 = -1;//-1代表不选择任何的行 列
+
+
+
+
+	 //加载背景图片
 	 loadimage(&img, _T(".\\images\\back.png"));
+	 //遍历
 	 for (int l = 0; l < 7; l++) {
 		 for (int r = 0; r < 15; r++) {
 			 //type = rand() % 7;
@@ -394,7 +406,7 @@ void gamePaint()
 			//type = rand() % 7;
 			//_stprintf(path, L".\\images\\%d\\%d.png", types[l][r], t);//产生路径
 			//loadimage(&imgs[l][r], path);//加载图片到内存空间
-			putimage(200 + 52 * r, 10 + 52 * l, &imgs[types[l][r]][t]);//把内存空间里的照片放到xy的位置上
+			putimage(200 + 52 * r, 10 + 52 * l, &imgs[gems[l][r].Type][t]);//把内存空间里的照片放到xy的位置上
 		}
 	}
 	fillrectangle(243, 449, 243 + w, 449 + 15);
@@ -402,17 +414,7 @@ void gamePaint()
  //TODO: 5 定时处理位置
 void gameInterval()
 {
-	if (t == 14) {
-		t = 0;
-	}
-	else
-	{
-		t++;
-	}
-	if (w < 330)
-	{
-		w += 5;
-	}
+	
 }
 //TODO: 6 处理键盘控制位置
 void gameKeypress(int key)
@@ -433,7 +435,7 @@ void gameKeypress(int key)
 		break;	
 	case 'W':  // 上
 	case 'w':  
-				
+		
 		break;	
 
 	case 72: //上
