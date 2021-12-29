@@ -156,7 +156,7 @@ void paintDemo()
 
 	/*例如：图片路径含变化的处理
 	IMAGE img4;
-	TCHAR imgPath[100];1
+	TCHAR imgPath[100];
 	_stprintf (imgPath, L".\\images\\%d.png",i);
 	loadimage(&img4,imgPath ) ;
 	putimage(100 ,300,&img4);
