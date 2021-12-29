@@ -346,7 +346,7 @@ typedef enum {
 	GEM_STATE State;//宝石的状态
 } GEM;
  //函数的前置声明
- void resetGameNormalState()；
+ void resetGameNormalState();
 
 
 //TODO: 2 全局变量声明位置 
