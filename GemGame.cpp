@@ -402,11 +402,18 @@ void gamePaint()
 	setfillcolor(0xFF55FF);//0x
 	putimage(0, 0, &img);
 	for (int l = 0; l < 8; l++) {
-		for (int r = 0; r < 8; r++) {
-			//type = rand() % 7;
-			//_stprintf(path, L".\\images\\%d\\%d.png", types[l][r], t);//产生路径
-			//loadimage(&imgs[l][r], path);//加载图片到内存空间
-			putimage(200 + 52 * r, 10 + 52 * l, &imgs[gems[l][r].Type][t]);//把内存空间里的照片放到xy的位置上
+		for (int r = 0; r < 8; r++) 
+		{
+			if (gems[l][r].State==GEM_NORMAL)
+			{
+				putimage(200 + r * 52, 10 + l * 52, &imgs[gems[l][r].Type][0]);
+			}
+			else if (gems[l][r].State == SELECTED_FIRST) 
+			{
+				putimage(200 + r * 52, 10 + l * 52, &imgs[gems[l][r].Type][gems[l][r].ImageNum]);
+				gems[l][r].ImageNum = (gems[l][r].ImageNum + 1) % imageCount;
+			}
+			
 		}
 	}
 	fillrectangle(243, 449, 243 + w, 449 + 15);
@@ -468,8 +475,11 @@ void gameMouseUp(int mouseX,int mouseY)
 		//得到宝石所在行列
 		line1 = (mouseY - 10) / 52;
 		column1 = (mouseX - 200) / 52;
-		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8) {
-			
+		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8//判断是否在宝石阵内部
+			&& gems[line1][column1].State== GEM_STATE::GEM_NORMAL  //当前选择的宝石是否是静止状态
+			) 
+		{
+			gems[line1][column1].State = GEM_STATE::SELECTED_FIRST;
 		}
 	}
 	else
