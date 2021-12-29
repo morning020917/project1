@@ -549,6 +549,7 @@ int enableSelectSecond()
 			column2 = column1 + 1;
 			printf("ср╡Ю");
 		}
+		return 1;
 	}
 	else if (column2 == column1)
 	{
