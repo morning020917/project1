@@ -505,6 +505,10 @@ void gameMouseUp(int mouseX,int mouseY)
 		{
 
 		}
+		else 
+		{
+			resetGameNormalState();
+		}
 	}
 	else 
 	{
@@ -543,27 +547,23 @@ int enableSelectSecond()
 		if (column1 > column2)
 		{
 			column2 = column1 - 1;
-			printf("×ó²à");
 		}
 		else {
 			column2 = column1 + 1;
-			printf("ÓÒ²à");
 		}
-		return 1;
+		return column2>=0&&column2<8;
 	}
 	else if (column2 == column1)
 	{
 		if (line2 < line1)
 		{
 			line2 = line1 - 1;
-			printf("ÉÏ²à");
 		}
 		else
 		{
 			line2 = line1 + 1;
-			printf("ÏÂ²à");
 		}
-		return 1;
+		return line2>=0&&line2<8;
 	}
 	return 0;
 }
