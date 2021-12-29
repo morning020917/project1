@@ -463,12 +463,13 @@ void gameMouseDown(int mouseX,int mouseY)
 void gameMouseUp(int mouseX,int mouseY)
 {
 	//printf("鼠标松开了左键\n");
-	if () {
-
+	if (gameState==GAME_STATE::GAME_NORMAL) 
+	{
+		//得到宝石所在行列
 	}
 	else
 	{
-
+		//恢复 禁止状态
 	}
 }
 void gameMousemove (int mouseX,int mouseY)
