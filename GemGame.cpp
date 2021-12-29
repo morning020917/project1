@@ -411,7 +411,7 @@ void gamePaint()
 			{
 				putimage(200 + r * 52, 10 + l * 52, &imgs[gems[l][r].Type][0]);
 			}
-			else if (gems[l][r].State == SELECTED_FIRST) 
+			else if (gems[l][r].State == SELECTED_FIRST || gems[l][r].State == SELECTED_SECOND)
 			{
 				putimage(200 + r * 52, 10 + l * 52, &imgs[gems[l][r].Type][gems[l][r].ImageNum]);
 				gems[l][r].ImageNum = (gems[l][r].ImageNum + 1) % imageCount;
@@ -503,7 +503,14 @@ void gameMouseUp(int mouseX,int mouseY)
 		column2 = (mouseX - 200) / 52;
 		if (enableSelectSecond()) 
 		{
+			gems[line2][column2].State = SELECTED_SECOND;
+			//½»»»±¦Ê¯
+			GEM t;
+			t = gems[line1][column1];
+			gems[line1][column1] = gems[line2][column2];
+			gems[line2][column2] = t;
 
+			gameState = SELECT_TWO;
 		}
 		else 
 		{
