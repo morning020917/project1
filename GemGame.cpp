@@ -462,7 +462,14 @@ void gameMouseDown(int mouseX,int mouseY)
 }
 void gameMouseUp(int mouseX,int mouseY)
 {
-	printf("鼠标松开了左键\n");
+	//printf("鼠标松开了左键\n");
+	if () {
+
+	}
+	else
+	{
+
+	}
 }
 void gameMousemove (int mouseX,int mouseY)
 {
