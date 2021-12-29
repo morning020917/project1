@@ -466,6 +466,11 @@ void gameMouseUp(int mouseX,int mouseY)
 	if (gameState==GAME_STATE::GAME_NORMAL) 
 	{
 		//得到宝石所在行列
+		line1 = (mouseY - 10) / 52;
+		column1 = (mouseX - 200) / 52;
+		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8) {
+			
+		}
 	}
 	else
 	{
