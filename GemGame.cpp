@@ -347,7 +347,7 @@ typedef enum {
 } GEM;
  //TODO: 2 函数的前置声明
  void resetGameNormalState();
-
+ int enableSelectSecond();//能够滑动到第二个宝石
 
 //TODO: 2 全局变量声明位置 
 int level = 3;//难度等级 宝石种类越少越简单
@@ -468,34 +468,49 @@ void gameKeypress(int key)
 //TODO: 7 处理鼠标控制位置
 void gameMouseDown(int mouseX,int mouseY)
 {
-	printf("鼠标按下了左键\n");
-}
-void gameMouseUp(int mouseX,int mouseY)
-{
-	//printf("鼠标松开了左键\n");
-	if (gameState==GAME_STATE::GAME_NORMAL) 
+	//printf("鼠标按下了左键\n");
+	if (gameState == GAME_STATE::GAME_NORMAL)
 	{
 		//得到宝石所在行列
 		line1 = (mouseY - 10) / 52;
 		column1 = (mouseX - 200) / 52;
 		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8//判断是否在宝石阵内部
-			&& gems[line1][column1].State== GEM_STATE::GEM_NORMAL  //当前选择的宝石是否是静止状态
-			) 
+			&& gems[line1][column1].State == GEM_STATE::GEM_NORMAL  //当前选择的宝石是否是静止状态
+			)
 		{
 			gems[line1][column1].State = GEM_STATE::SELECTED_FIRST;
 			gameState = GAME_STATE::SELECT_ONE;
 		}
-		else 
+		else
 		{
 			resetGameNormalState();
 		}
 	}
-	
+
 	else
 	{
 		resetGameNormalState();
 		//恢复 禁止状态
 	}
+}
+void gameMouseUp(int mouseX,int mouseY)
+{
+	//printf("鼠标松开了左键\n");
+	if (gameState == SELECT_ONE) 
+	{
+		//判断 鼠标在哪行 哪列
+		line2 = (mouseY - 10) / 52;
+		column2 = (mouseX - 200) / 52;
+		if (enableSelectSecond()) 
+		{
+
+		}
+	}
+	else 
+	{
+		resetGameNormalState();
+	}
+	
 }
 void gameMousemove (int mouseX,int mouseY)
 {
@@ -520,4 +535,34 @@ void resetGameNormalState()
 		gems[line2][column2].State = GEM_NORMAL;
 		line2 = column2 = -1;
 	}
+}
+int enableSelectSecond() 
+{
+	if (line2 == line1)
+	{
+		if (column1 > column2)
+		{
+			column2 = column1 - 1;
+			printf("左侧");
+		}
+		else {
+			column2 = column1 + 1;
+			printf("右侧");
+		}
+	}
+	else if (column2 == column1)
+	{
+		if (line2 < line1)
+		{
+			line2 = line1 - 1;
+			printf("上侧");
+		}
+		else
+		{
+			line2 = line1 + 1;
+			printf("下侧");
+		}
+		return 1;
+	}
+	return 0;
 }
