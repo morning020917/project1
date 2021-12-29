@@ -346,8 +346,17 @@ typedef enum {
 	GEM_STATE State;//宝石的状态
 } GEM;
 
-
 //TODO: 2 全局变量声明位置 
+int level = 3;//难度等级 宝石种类越少越简单
+GEM gems[8][8];//所有宝石
+GEM gemsTemp[8][8];//临时存放下落的宝石
+GAME_STATE gameState;//游戏当前的状态
+int line1, column1;//选择的第一个宝石所在的行 列
+int line2, column2;//选择的第二个宝石所在的行 列
+int imageCount = 14 + 1;//动画图片帧的总数量
+int gemsTempTop = 10 - 50 * 2;//宝石下落的距离
+int score = 0;//成绩得分
+int timeLong = 0;//时间进度条的长度
 int t = 0, type;
 int types[8][8];
 int w = 0;
