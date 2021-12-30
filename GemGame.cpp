@@ -349,6 +349,10 @@ typedef enum {
  void resetGameNormalState();
  int enableSelectSecond();//能够滑动到第二个宝石
  void swapGem();
+ void setLineColumn(int mouseX, int mouseY, int* line, int* column);
+
+
+
 //TODO: 2 全局变量声明位置 
 int level = 3;//难度等级 宝石种类越少越简单
 GEM gems[8][8];//所有宝石
@@ -576,4 +580,9 @@ GEM t;
 t = gems[line1][column1];
 gems[line1][column1] = gems[line2][column2];
 gems[line2][column2] = t;
+}
+void setLineColumn(int mouseX, int mouseY,int * line,int *column)
+{
+	*line = (mouseY - 10) / 52;
+	*column = (mouseX - 200) / 52;
 }
