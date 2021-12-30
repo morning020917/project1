@@ -353,7 +353,7 @@ typedef enum {
  int isInGemRaange();
  int enabledLineClear(int line, int column);
  int  enabledColumnClear(int line, int column);
-
+ void toClear(int line, int column, int type);
 
 
 //TODO: 2 全局变量声明位置 
@@ -458,7 +458,7 @@ void gameInterval()
 	{
 		if (enabledLineClear(line1,column1)||enabledColumnClear(line1, column1)) //宝石1能清除吗？
 		{
-
+			toClear( line1,  column1, gems[line1][column1].Type);
 		}
 
 		if (enabledLineClear(line2, column2) || enabledColumnClear(line2, column2))//宝石2能清除吗？
@@ -649,4 +649,28 @@ int  enabledColumnClear(int line, int column)
 		count++;
 	}
 	return count >= 3;
+}
+void toClear(int line,int column, int type) 
+{
+	if (gems[line][column].Type == type
+		&& gems[line][column].State == GEM_NORMAL) 
+	{
+		gems[line][column].State = TO_CLEAR;
+		if (line - 1 >= 0) 
+		{
+			toClear(line - 1, column, type);
+		}
+		if (line + 1 < 8) 
+		{
+			toClear(line + 1, column, type);
+		}
+		if (column - 1 >= 0) 
+		{
+			toClear(line, column - 1, type);
+		}
+		if (column + 1 < 8) 
+		{
+			toClear(line, column + 1, type);
+		}
+	}
 }
