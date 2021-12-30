@@ -350,7 +350,7 @@ typedef enum {
  int enableSelectSecond();//能够滑动到第二个宝石
  void swapGem();
  void setLineColumn(int mouseX, int mouseY, int* line, int* column);
-
+ int isInGemRaange();
 
 
 //TODO: 2 全局变量声明位置 
@@ -477,7 +477,7 @@ void gameMouseDown(int mouseX,int mouseY)
 	{
 		//得到宝石所在行列
 		setLineColumn(mouseX, mouseY, &line1, &column1);
-		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8//判断是否在宝石阵内部
+		if (isInGemRaange()//判断是否在宝石阵内部
 			&& gems[line1][column1].State == GEM_STATE::GEM_NORMAL  //当前选择的宝石是否是静止状态
 			)
 		{
@@ -583,4 +583,8 @@ void setLineColumn(int mouseX, int mouseY,int * line,int * column)
 {
 	*line = (mouseY - 10) / 52;
 	*column = (mouseX - 200) / 52;
+}
+int isInGemRaange()
+{
+	return line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8;
 }
