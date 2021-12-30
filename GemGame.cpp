@@ -428,7 +428,23 @@ void gamePaint()
  //TODO: 5 定时处理位置
 void gameInterval()
 {
-	
+	if (gameState==GAME_STATE::SELECT_TWO
+		&& gems[line2][column2].ImageNum==14)
+	{
+		//被选的宝石回到初始状态
+		gems[line1][column1].State = GEM_NORMAL;
+		gems[line2][column2].State = GEM_NORMAL;
+		if (   ) 
+		{
+			gameState = GAME_STATE::CLER;
+		}
+		else 
+		{
+			swapGem();
+			resetGameNormalState();
+
+		}
+	}
 }
 //TODO: 6 处理键盘控制位置
 void gameKeypress(int key)
