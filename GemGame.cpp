@@ -574,10 +574,10 @@ int enableSelectSecond()
 }
 void swapGem() 
 {
-GEM t;
-t = gems[line1][column1];
-gems[line1][column1] = gems[line2][column2];
-gems[line2][column2] = t;
+   GEM t;
+   t = gems[line1][column1];
+   gems[line1][column1] = gems[line2][column2];
+   gems[line2][column2] = t;
 }
 void setLineColumn(int mouseX, int mouseY,int * line,int * column)
 {
