@@ -351,6 +351,9 @@ typedef enum {
  void swapGem();
  void setLineColumn(int mouseX, int mouseY, int* line, int* column);
  int isInGemRaange();
+ int enabledLineClear(int line, int column);
+ int  enabledColumnClear(int line, int column);
+
 
 
 //TODO: 2 全局变量声明位置 
@@ -434,7 +437,11 @@ void gameInterval()
 		//被选的宝石回到初始状态
 		gems[line1][column1].State = GEM_NORMAL;
 		gems[line2][column2].State = GEM_NORMAL;
-		if (   ) 
+		if (enabledLineClear(line1,column1)
+			|| enabledLineClear(line2,column2)
+			|| enabledColumnClear(line1, column1)
+			|| enabledColumnClear(line2, column2)
+			) 
 		{
 			gameState = GAME_STATE::CLER;
 		}
@@ -603,4 +610,12 @@ void setLineColumn(int mouseX, int mouseY,int * line,int * column)
 int isInGemRaange()
 {
 	return line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8;
+}
+int enabledLineClear(int line, int column) 
+{
+
+}
+int  enabledColumnClear(int line, int column)
+{
+
 }
