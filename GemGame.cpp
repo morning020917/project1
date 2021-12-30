@@ -625,14 +625,14 @@ int enabledLineClear(int line, int column)
 }
 int  enabledColumnClear(int line, int column)
 {
-	int count1 = 0;
+	int count = 0;
 	for (int top = line - 1; top >= 0 && gems[top][column].Type == gems[line][column].Type; top--)
 	{
-		count1++;
+		count++;
 	}
 	for (int bottom = line; bottom < 8 && gems[bottom][column].Type == gems[line][column].Type; bottom++) 
 	{
-		count1++;
+		count++;
 	}
-	return count1 >= 3;
+	return count >= 3;
 }
