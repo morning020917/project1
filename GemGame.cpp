@@ -452,6 +452,20 @@ void gameInterval()
 
 		}
 	}
+
+	//清除状态
+	if (gameState == GAME_STATE::CLER) 
+	{
+		if (enabledLineClear(line1,column1)||enabledColumnClear(line1, column1)) //宝石1能清除吗？
+		{
+
+		}
+
+		if (enabledLineClear(line2, column2) || enabledColumnClear(line2, column2))//宝石2能清除吗？
+		{
+
+		}
+	}
 }
 //TODO: 6 处理键盘控制位置
 void gameKeypress(int key)
