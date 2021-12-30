@@ -476,8 +476,7 @@ void gameMouseDown(int mouseX,int mouseY)
 	if (gameState == GAME_STATE::GAME_NORMAL)
 	{
 		//得到宝石所在行列
-		line1 = (mouseY - 10) / 52;
-		column1 = (mouseX - 200) / 52;
+		setLineColumn(mouseX, mouseY, &line1, &column1);
 		if (line1 >= 0 && line1 < 8 && column1 >= 0 && column1 < 8//判断是否在宝石阵内部
 			&& gems[line1][column1].State == GEM_STATE::GEM_NORMAL  //当前选择的宝石是否是静止状态
 			)
@@ -503,8 +502,7 @@ void gameMouseUp(int mouseX,int mouseY)
 	if (gameState == SELECT_ONE) 
 	{
 		//判断 鼠标在哪行 哪列
-		line2 = (mouseY - 10) / 52;
-		column2 = (mouseX - 200) / 52;
+		setLineColumn(mouseX, mouseY, &line2, &column2);
 		if (enableSelectSecond()) 
 		{
 			gems[line2][column2].State = SELECTED_SECOND;
