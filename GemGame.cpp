@@ -307,11 +307,11 @@ int main  ()
 	initgraph(screenWidth, screenHeight,SHOWCONSOLE);		
 	initgame();					// 初始化游戏
 	paint();// 刷新显示游戏界面
-	 
 	flushmessage();		// 清空鼠标缓冲区
 	while (_kbhit()) _getch();	// 清空键盘缓冲区
 	run();						// 开始游戏
 	closegraph();//关闭图形环
+	
 	return 0;
 }
  
@@ -367,7 +367,6 @@ int imageCount = 14 + 1;//动画图片帧的总数量
 int gemsTempTop = 10 - 50 * 2;//宝石下落的距离
 int score = 0;//成绩得分
 int timeLong = 0;//时间进度条的长度
-
 int t = 0, type;
 int types[8][8];
 int w = 0;
