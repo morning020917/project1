@@ -348,7 +348,7 @@ typedef enum {
  //TODO: 2 函数的前置声明
  void resetGameNormalState();
  int enableSelectSecond();//能够滑动到第二个宝石
-
+ void swapGem();
 //TODO: 2 全局变量声明位置 
 int level = 3;//难度等级 宝石种类越少越简单
 GEM gems[8][8];//所有宝石
@@ -505,11 +505,7 @@ void gameMouseUp(int mouseX,int mouseY)
 		{
 			gems[line2][column2].State = SELECTED_SECOND;
 			//交换宝石
-			GEM t;
-			t = gems[line1][column1];
-			gems[line1][column1] = gems[line2][column2];
-			gems[line2][column2] = t;
-
+			swapGem();
 			gameState = SELECT_TWO;
 		}
 		else 
@@ -573,4 +569,11 @@ int enableSelectSecond()
 		return line2>=0&&line2<8;
 	}
 	return 0;
+}
+void swapGem() 
+{
+GEM t;
+t = gems[line1][column1];
+gems[line1][column1] = gems[line2][column2];
+gems[line2][column2] = t;
 }
