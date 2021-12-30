@@ -613,9 +613,26 @@ int isInGemRaange()
 }
 int enabledLineClear(int line, int column) 
 {
-
+	int count = 0;
+	for (int left = column - 1;left>=0 && gems[line][left].Type == gems[line][column].Type;left--)
+	{
+		count++;
+	}
+	for (int right = column; right < 8 && gems[line][right].Type == gems[line][column].Type; right++) {
+		count++;
+	}
+	return count >= 3;
 }
 int  enabledColumnClear(int line, int column)
 {
-
+	int count1 = 0;
+	for (int top = line - 1; top >= 0 && gems[top][column].Type == gems[line][column].Type; top--)
+	{
+		count1++;
+	}
+	for (int bottom = line; bottom < 8 && gems[bottom][column].Type == gems[line][column].Type; bottom++) 
+	{
+		count1++;
+	}
+	return count1 >= 3;
 }
