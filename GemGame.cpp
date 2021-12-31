@@ -326,7 +326,7 @@ typedef enum
 	GAME_NORMAL,//正常状态
 	SELECT_ONE,//选了第一个宝石
 	SELECT_TWO,//选了第二个宝石
-	CLER, //清楚状态
+	CLEAR, //清楚状态
 	APPEND //追加补齐
 } GAME_STATE;
 
@@ -456,18 +456,17 @@ void gameInterval()
 			|| enabledColumnClear(line2, column2)
 			) 
 		{
-			gameState = GAME_STATE::CLER;
+			gameState = GAME_STATE::CLEAR;
 		}
 		else 
 		{
 			swapGem();
 			resetGameNormalState();
-
 		}
 	}
 
 	//清除状态
-	if (gameState == GAME_STATE::CLER) 
+	if (gameState == GAME_STATE::CLEAR) 
 	{
 		if (enabledLineClear(line1,column1)
 			||enabledColumnClear(line1, column1)) //宝石1能清除吗？
@@ -480,39 +479,45 @@ void gameInterval()
 		{
 			toClear(line2, column2, gems[line2][column2].Type);
 		}
-	}
+	
 
 	//找每一列哪个行有TOCLEAR状态的宝石
 	for (int l =0;l<8;l++) 
 	{
-		for (int h = 7;h >= 0;h--) 
+		for (int h = 7; h >= 0; h--)
 		{
-			if (gems[h][l].State==TO_CLEAR)
+			if (gems[h][l].State == TO_CLEAR)
 			{
 				//printf("找到了被清除的： l=%d h=%d\n",l,h);
 				//想上寻找第一个被保留的宝石 行 位置 kh 看行
 				int count = 0;
-				for (int kh=h-1;kh>=0&&gems[kh][l].State==TO_CLEAR; kh--)
+				for (int kh = h - 1; kh >= 0 && gems[kh][l].State == TO_CLEAR; kh--)
 				{
 					count++;
 				}
 				//把要保留的宝石放到缓冲区（注意 从被删除的位置开始 保留）
-				for (int cun = h ; cun - count - 1 >=0; cun--)
+				for (int cun = h; cun - count - 1 >= 0; cun--)
 				{
 					gemsTemp[cun][l] = gems[h - count - 1][l];//把宝石 放到了缓冲区
 					gems[cun - count - 1][l].State = CLEARING;//把原来宝石的状态改成 清除中
 				}
 				//补齐宝石
-				for (int bh =0 ;bh<=count;bh++) 
+				for (int bh = 0; bh <= count; bh++)
 				{
-					gemsTemp[bh][l].Type = rand() % level;
+					do {
+						gemsTemp[bh][l].Type = rand() % level;
+						gemsTemp[bh][l].State = CLEARING;
+					} while (gemsTemp[bh][l].Type == gems[line1][column1].Type || gemsTemp[bh][l].Type == gems[line2][column2].Type);
 
 				}
+
 				break;
 			}
+		 }
 		}
+		gameState = GAME_STATE::APPEND;
 	}
-
+	
 
 }
 //TODO: 6 处理键盘控制位置
