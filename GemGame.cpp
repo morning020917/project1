@@ -304,7 +304,7 @@ int testHit(int x1,int y1,int w1,int h1,int x2,int y2,int w2,int h2 )
 // 主函数，开启游戏
 int main  ()
 {
-	initgraph(screenWidth, screenHeight,SHOWCONSOLE);		
+	initgraph(screenWidth, screenHeight);//	,SHOWCONSOLE	
 	initgame();					// 初始化游戏
 	paint();// 刷新显示游戏界面
 	flushmessage();		// 清空鼠标缓冲区
@@ -494,14 +494,17 @@ void gameInterval()
 		if (countClear<4) 
 		{
 			score += countClear;
+			w -= 20;
 		}
 		else if(countClear>=4 && countClear<8)
 		{
 			score += countClear * 1.5;
+			w -= 30;
 		}
 		else if (countClear >= 8) 
 		{
 			score += countClear * 2;
+			w -= 40;
 		}
 		//升级： 增加宝石种类
 		switch (score / 100) {
