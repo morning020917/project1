@@ -367,6 +367,9 @@ int imageCount = 14 + 1;//动画图片帧的总数量
 int gemsTempTop = 10 - 50 * 2;//宝石下落的距离
 int score = 0;//成绩得分
 int timeLong = 0;//时间进度条的长度
+//宝石一的的消除数 宝石二的消除数
+int countClear = 0;
+
 int t = 0, type;
 int types[8][8];
 int w = 0;
@@ -472,6 +475,7 @@ void gameInterval()
 	//清除状态
 	if (gameState == GAME_STATE::CLEAR) 
 	{
+		countClear = 0;
 		if (enabledLineClear(line1,column1)
 			||enabledColumnClear(line1, column1)) //宝石1能清除吗？
 		{
@@ -483,7 +487,19 @@ void gameInterval()
 		{
 			toClear(line2, column2, gems[line2][column2].Type);
 		}
-	
+	//计算得分
+		if (countClear<4) 
+		{
+			score += countClear;
+		}
+		else if(countClear>=4 && countClear<8)
+		{
+			score += countClear * 1.5;
+		}
+		else if (countClear >= 8) 
+		{
+			score += countClear * 2;
+		}
 
 	//找每一列哪个行有TOCLEAR状态的宝石
 	for (int l =0;l<8;l++) 
@@ -526,7 +542,22 @@ void gameInterval()
 	{
 		if (gemsTempTop==0) 
 		{
+			for (int h=0;h<8;h++) 
+			{
+				for (int l = 0; l < 8; l++) 
+				{
+					if (gemsTemp[h][l].Type!=-1)
+					{
+						gems[h][l] = gemsTemp[h][l];
+						gems[h][l].State = GEM_NORMAL;
+						gems[h][l].ImageNum = 0;
+						gemsTemp[h][l].Type = -1;
+					}
+				}
+			}
+			resetGameNormalState();//
 
+			gemsTempTop = 10 - 50 * 2;//回到初始值 用于下一次
 		}
 		else 
 		{
@@ -724,6 +755,7 @@ void toClear(int line,int column, int type)
 	if (gems[line][column].Type == type
 		&& gems[line][column].State == GEM_NORMAL) 
 	{
+		countClear++;
 		gems[line][column].State = TO_CLEAR;
 		if (line - 1 >= 0) 
 		{
