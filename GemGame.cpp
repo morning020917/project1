@@ -502,7 +502,12 @@ void gameInterval()
 					gemsTemp[cun][l] = gems[h - count - 1][l];//把宝石 放到了缓冲区
 					gems[cun - count - 1][l].State = CLEARING;//把原来宝石的状态改成 清除中
 				}
-				
+				//补齐宝石
+				for (int bh =0 ;bh<=count;bh++) 
+				{
+					gemsTemp[bh][l].Type = rand() % level;
+
+				}
 				break;
 			}
 		}
