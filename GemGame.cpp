@@ -531,7 +531,7 @@ void gameMouseDown(int mouseX,int mouseY)
 	else
 	{
 		resetGameNormalState();
-		//»Ö¸´ ½ûÖ¹×´Ì¬
+		//»Ö¸´ ¾²Ö¹×´Ì¬
 	}
 }
 void gameMouseUp(int mouseX,int mouseY)
