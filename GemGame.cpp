@@ -425,18 +425,22 @@ void gamePaint()
 			
 		}
 	}
-	//显示临时缓冲区的宝石
-	for (int h = 0; h < 8; h++) 
+	if (gameState == APPEND) 
 	{
-		for (int l = 0; l < 8; l++) 
-		{
-			if (gemsTemp[h][l].Type!=-1)
-			{
-				putimage(200 + l * 52, 10 + h * 52, &imgs[gemsTemp[h][l].Type][gemsTemp[h][l].ImageNum]);
-				gemsTemp[h][l].ImageNum = (gemsTemp[h][l].ImageNum + 1) % imageCount;
-			}
-		}
+			for (int h = 0; h < 8; h++) 
+				{
+					for (int l = 0; l < 8; l++) 
+						{
+							if (gemsTemp[h][l].Type!=-1)
+							{
+								putimage(200 + l * 52, gemsTempTop + 10 + h * 52, &imgs[gemsTemp[h][l].Type][gemsTemp[h][l].ImageNum]);
+								gemsTemp[h][l].ImageNum = (gemsTemp[h][l].ImageNum + 1) % imageCount;
+							}
+						}
+				}
 	}
+	//显示临时缓冲区的宝石
+	
 
 
 	fillrectangle(243, 449, 243 + w, 449 + 15);
@@ -518,6 +522,18 @@ void gameInterval()
 		gameState = GAME_STATE::APPEND;
 	}
 	
+	if (gameState == GAME_STATE::APPEND) 
+	{
+		if (gemsTempTop==0) 
+		{
+
+		}
+		else 
+		{
+			gemsTempTop += 5;
+		}
+		
+	}
 
 }
 //TODO: 6 处理键盘控制位置
