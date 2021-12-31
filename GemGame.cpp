@@ -311,7 +311,6 @@ int main  ()
 	while (_kbhit()) _getch();	// 清空键盘缓冲区
 	run();						// 开始游戏
 	closegraph();//关闭图形环
-	
 	return 0;
 }
  
@@ -369,10 +368,10 @@ int score = 0;//成绩得分
 int timeLong = 0;//时间进度条的长度
 //宝石一的的消除数 宝石二的消除数
 int countClear = 0;
-
+int w = 330;
 int t = 0, type;
 int types[8][8];
-int w = 0;
+
 TCHAR path[100];//路径模块
 IMAGE img;//申请一个存放图片的内存空间
 IMAGE imgs[7][15];
@@ -394,7 +393,7 @@ IMAGE imgs[7][15];
 	 gameState = GAME_STATE::GAME_NORMAL;
 	 line1 = line2 = column1 = column2 = -1;//-1代表不选择任何的行 列
 
-
+	 
 
 
 	 //加载背景图片
@@ -447,9 +446,15 @@ void gamePaint()
 	TCHAR s[20];
 	_stprintf(s, _T("%d"), score);
 	outtextxy(40, 90, s);
-	
+	if (w <= 0) {
+		
+	}
+	else 
+	{
 	fillrectangle(243, 449, 243 + w, 449 + 15);
-
+	}
+	
+	
 }
  //TODO: 5 定时处理位置
 void gameInterval()
@@ -494,17 +499,17 @@ void gameInterval()
 		if (countClear<4) 
 		{
 			score += countClear;
-			w -= 20;
+			w -= 15;
 		}
 		else if(countClear>=4 && countClear<8)
 		{
 			score += countClear * 1.5;
-			w -= 30;
+			w -= 15;
 		}
 		else if (countClear >= 8) 
 		{
 			score += countClear * 2;
-			w -= 40;
+			w -= 15;
 		}
 		//升级： 增加宝石种类
 		switch (score / 100) {
