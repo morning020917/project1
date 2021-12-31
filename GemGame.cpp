@@ -425,6 +425,20 @@ void gamePaint()
 			
 		}
 	}
+	//显示临时缓冲区的宝石
+	for (int h = 0; h < 8; h++) 
+	{
+		for (int l = 0; l < 8; l++) 
+		{
+			if (gemsTemp[h][l].Type!=-1)
+			{
+				putimage(200 + l * 52, 10 + h * 52, &imgs[gemsTemp[h][l].Type][gemsTemp[h][l].ImageNum]);
+				gemsTemp[h][l].ImageNum = (gemsTemp[h][l].ImageNum + 1) % imageCount;
+			}
+		}
+	}
+
+
 	fillrectangle(243, 449, 243 + w, 449 + 15);
 }
  //TODO: 5 定时处理位置
@@ -467,6 +481,34 @@ void gameInterval()
 			toClear(line2, column2, gems[line2][column2].Type);
 		}
 	}
+
+	//找每一列哪个行有TOCLEAR状态的宝石
+	for (int l =0;l<8;l++) 
+	{
+		for (int h = 7;h >= 0;h--) 
+		{
+			if (gems[h][l].State==TO_CLEAR)
+			{
+				//printf("找到了被清除的： l=%d h=%d\n",l,h);
+				//想上寻找第一个被保留的宝石 行 位置 kh 看行
+				int count = 0;
+				for (int kh=h-1;kh>=0&&gems[kh][l].State==TO_CLEAR; kh--)
+				{
+					count++;
+				}
+				//把要保留的宝石放到缓冲区（注意 从被删除的位置开始 保留）
+				for (int cun = h ; cun - count - 1 >=0; cun--)
+				{
+					gemsTemp[cun][l] = gems[h - count - 1][l];//把宝石 放到了缓冲区
+					gems[cun - count - 1][l].State = CLEARING;//把原来宝石的状态改成 清除中
+				}
+				
+				break;
+			}
+		}
+	}
+
+
 }
 //TODO: 6 处理键盘控制位置
 void gameKeypress(int key)
