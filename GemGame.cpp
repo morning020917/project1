@@ -443,10 +443,13 @@ void gamePaint()
 				}
 	}
 	//显示临时缓冲区的宝石
+    drawImage(0, 0, &img);
 	TCHAR s[20];
 	_stprintf(s, _T("%d"), score);
 	outtextxy(40, 90, s);
+	
 	fillrectangle(243, 449, 243 + w, 449 + 15);
+
 }
  //TODO: 5 定时处理位置
 void gameInterval()
@@ -500,7 +503,25 @@ void gameInterval()
 		{
 			score += countClear * 2;
 		}
-
+		//升级： 增加宝石种类
+		switch (score / 100) {
+		case 0:
+		case 1:
+			level = 3;
+			break;
+		case 2:
+			level = 4;
+			break;
+		case 3:
+			level = 5;
+			break;
+		case 4:
+			level = 6;
+			break;
+		default:
+			level = 7;
+			break;
+		}
 	//找每一列哪个行有TOCLEAR状态的宝石
 	for (int l =0;l<8;l++) 
 	{
