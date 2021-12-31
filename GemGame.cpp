@@ -443,9 +443,9 @@ void gamePaint()
 				}
 	}
 	//显示临时缓冲区的宝石
-	
-
-
+	TCHAR s[20];
+	_stprintf(s, _T("%d"), score);
+	outtextxy(40, 90, s);
 	fillrectangle(243, 449, 243 + w, 449 + 15);
 }
  //TODO: 5 定时处理位置
